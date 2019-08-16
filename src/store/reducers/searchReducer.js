@@ -20,7 +20,7 @@ function search(state = INITIAL_STATE, action) {
     case SEARCH_RESULTS_SUCCESS:
       return {
         ...state,
-        results: action.payload,
+        ...action.payload,
         isFetchingData: false
       };
     case SEARCH_RESULTS_FAILURE:

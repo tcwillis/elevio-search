@@ -1,2 +1,1 @@
-/* istanbul ignore file */
-export { default } from './NotFound';
+export { default } from "./NotFound";

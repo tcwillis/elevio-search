@@ -4,9 +4,12 @@ import {
   SEARCH_RESULTS_FAILURE
 } from "../actionTypes";
 
+import { makeRequest } from "utils/request";
+import Config from "app/config";
+
 const fetchSearchResultsSuccess = results => ({
   type: SEARCH_RESULTS_SUCCESS,
-  results
+  payload: results
 });
 
 function fetchSearchResultsRequest() {
@@ -22,10 +25,12 @@ function fetchSearchResultsFailure(error) {
   };
 }
 
-export function fetchSearchResults() {
+export function fetchSearchResults(searchTerm) {
   return dispatch => {
     dispatch(fetchSearchResultsRequest());
-
-    /* To Do - return fetch  and dispatch success or failure */
+    const url = `${Config.apiBaseUrl}/search/en?query=${searchTerm}`;
+    return makeRequest(url)
+      .then(result => dispatch(fetchSearchResultsSuccess(result)))
+      .catch(error => dispatch(fetchSearchResultsFailure(error)));
   };
 }
